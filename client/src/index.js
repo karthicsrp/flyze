@@ -29,8 +29,7 @@ const reducer = function(state = initialstore, action) {
                 ...state
             }
         }
-    }
-	return state;
+    }    
 }
 
 const store = createStore(reducer);

@@ -1,6 +1,5 @@
 import React from 'react'; //import axios from 'axios';
-import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBDropdown,
-  MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBIcon } from "mdbreact";
+import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBIcon, MDBCollapse } from "mdbreact";
 import { Redirect } from 'react-router'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Login from './components/Login';
@@ -30,26 +29,31 @@ class App extends React.Component {
     this.setState({ isOpen: !this.state.isOpen });
   }  
   
-  render() {      
-    
-    var inValidUser = "";
-    if(!this.state.validUser){
-      inValidUser =<nav data-test="navbar" class="navbar-dark indigo navbar navbar-expand-md sticky-top" role="navigation">
-                      <div data-test="navbar-brand" class="navbar-brand">
-                        <strong class="white-text">
-                          <i data-test="fa" class="fa fa-plane-departure"></i>
-                          <span>Flyze</span>
-                        </strong>
-                      </div>
-                    </nav>;
+  menuListDOM = () => {
+    let menuList = []
+    let datas = [
+                    {icon: "home", text: "Boarding", link: 'home'},
+                    {icon: "archway", text: "Airport", link: 'airport'},
+                    {icon: "plane", text: "Airplain", link: 'airplain'},
+                    {icon: "shopping-cart", text: "Retail/Brand", link: 'retailandbrand'},
+                    {icon: "users", text: "Passenger", link: 'passenger'}   
+                ]; 
+    for (let data of datas) {
+        let children = [];
+        children.push(<MDBNavLink to={`/${data['link']}`} ><MDBIcon icon={`${data['icon']}`}/><span>{`${data['text']}`}</span></MDBNavLink>);
+        menuList.push(<MDBNavItem>{children}</MDBNavItem>);          
     }
-    //console.log(props.users);
+    return menuList;     
+  }
+  
+  render() {      
+    const hideShowClass =  this.props.validUser ? '' : 'hide';
     return (
       <div className="App">
         <header >      
-          {inValidUser}              
+                    
           <Router>
-            <MDBNavbar color="indigo" dark expand="md" id="navbar" className={this.props.validUser ? 'sticky-top' : 'hide'}>
+            <MDBNavbar color="indigo" dark expand="md" id="navbar" className='sticky-top'>
               <MDBNavbarBrand>
                 <strong className="white-text">
                   <MDBIcon icon="plane-departure" />
@@ -57,37 +61,14 @@ class App extends React.Component {
                 </strong>
               </MDBNavbarBrand>
               <MDBNavbarBrand right className="user-name-wrapper">Hi <span className="user-name">Krishna</span></MDBNavbarBrand>
-              <MDBNavbarToggler onClick={this.toggleCollapse} />
-              <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
+              <MDBNavbarToggler onClick={this.toggleCollapse} className={hideShowClass} />
+              <MDBCollapse id="navbarCollapse3" className={hideShowClass} isOpen={this.state.isOpen} navbar>
                 <MDBNavbarNav left onClick={this.toggleCollapse}>
-                  <MDBNavItem >
-                    <MDBNavLink to="/home"><MDBIcon icon="home" /> <span>Home</span></MDBNavLink>
-                  </MDBNavItem>            
-                  <MDBNavItem>
-                    <MDBNavLink to="/airport"><MDBIcon icon="archway" /> <span>Airport</span></MDBNavLink>
-                  </MDBNavItem>    
-                  <MDBNavItem>
-                    <MDBNavLink to="/airplain"><MDBIcon icon="plane" /> <span>Airplain</span></MDBNavLink>
-                  </MDBNavItem> 
-                  <MDBNavItem>
-                    <MDBNavLink to="/retailandbrand"><MDBIcon icon="shopping-cart" /> <span>Retail/Brand</span></MDBNavLink>
-                  </MDBNavItem> 
-                  <MDBNavItem>
-                    <MDBNavLink to="/passenger"><MDBIcon icon="users" /> <span>Passenger</span></MDBNavLink>
-                  </MDBNavItem>                
+                  {this.menuListDOM()}         
                 </MDBNavbarNav>
                 <MDBNavbarNav right>
                   <MDBNavItem>
-                    <MDBDropdown>
-                      <MDBDropdownToggle nav caret> <span className="lg-user-name">{this.props.username}</span>
-                        <MDBIcon icon="user" />
-                      </MDBDropdownToggle>
-                      <MDBDropdownMenu className="dropdown-default">
-                        <MDBDropdownItem href="#!">Action 1</MDBDropdownItem>
-                        <MDBDropdownItem href="#!">Action 2</MDBDropdownItem>
-                        <MDBDropdownItem href="#!">Action 3</MDBDropdownItem>
-                      </MDBDropdownMenu>
-                    </MDBDropdown>
+                   <MDBNavLink to="/passenger"><MDBIcon icon="circle-notch" /></MDBNavLink>
                   </MDBNavItem>
                 </MDBNavbarNav>
               </MDBCollapse>
