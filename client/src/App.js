@@ -43,7 +43,6 @@ class App extends React.Component {
                       </div>
                     </nav>;
     }
-    debugger;
     //console.log(props.users);
     return (
       <div className="App">
