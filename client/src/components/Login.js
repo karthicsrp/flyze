@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import QrReader from 'react-qr-reader';
+import { get_user_data } from "../store/FetchData";
+import { connect } from "react-redux";
 
 class Login extends Component {
     constructor(props) {
@@ -22,31 +24,14 @@ class Login extends Component {
         }
     }
 
-    getUsuarios = (id) => {  
-        fetch('http://localhost:4000/server?id='+id)
-        .then(response => response.json())
-        .then(response => { 
-                this.setState({users: response}); 
-                if(response.length === 0) {
-                     this.setState({ errorFlag: true });
-                } else {
-                    this.props.loginCallback(true, 'Krishna');
-                    // user valid data
-                    // this.props.history.push("/home");
-                }
-            })
-        .catch(err => console.log(err))
-    }
-
     pnrVal = event => {
         this.setState({result : event.target.value, errorFlag: false});        
     }
     prnSubmit = () => {
-        console.log(this.state.result);
         if(!this.state.result) {
             this.setState({ errorFlag: true });
         }
-        this.getUsuarios(this.state.result);
+        get_user_data(this.state.result);
     }
  
     getQueryParam = (name) => {
@@ -70,7 +55,7 @@ class Login extends Component {
     createTable = () => {
         let labels = {pnr_id: 'PNR NO', name: 'Name', age: 'Age', dep_location: 'Dep location', dep_date_time: 'Dep Date & Time',ari_location: 'Ari location', ari_date_time: 'Ari Date & Time', terminal: 'terminal No', status: 'Status'};
         let table = []
-        let userData = this.state.users; 
+        let userData = this.props.userData; 
         if(userData.length === 0) {
             return false;
         }
@@ -101,7 +86,7 @@ class Login extends Component {
                         />                
                     </div>;
         }        
-        if (this.state.users.length > 0) { 
+        if (this.props.userData.length > 0) { 
             passInfo = <section className="pass-info">
                             <div className="title-wrapper">
                                 <i data-test="fa" className="fab fa-creative-commons-by"></i>
@@ -139,4 +124,10 @@ class Login extends Component {
     }
 }
 
-export default Login;
+const mapStateToProps = (store) => {
+	return {
+		userData: store.userData
+	}
+}
+
+export default connect(mapStateToProps)(Login);

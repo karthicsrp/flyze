@@ -34,10 +34,10 @@ class App extends React.Component {
     
     var inValidUser = "";
     if(!this.state.validUser){
-      inValidUser =<nav data-test="navbar" class="navbar-dark indigo navbar navbar-expand-md sticky-top" role="navigation">
-                      <div data-test="navbar-brand" class="navbar-brand">
-                        <strong class="white-text">
-                          <i data-test="fa" class="fa fa-plane-departure"></i>
+      inValidUser =<nav data-test="navbar" className="navbar-dark indigo navbar navbar-expand-md sticky-top" role="navigation">
+                      <div data-test="navbar-brand" className="navbar-brand">
+                        <strong className="white-text">
+                          <i data-test="fa" className="fa fa-plane-departure"></i>
                           <span>Flyze</span>
                         </strong>
                       </div>
@@ -133,7 +133,7 @@ class App extends React.Component {
 
 const mapStateToProps = (store) => {
 	return {
-		validUser: store.validUser,
+		validUser: store.isValidUser,
 		username: store.username
 	}
 }
@@ -148,4 +148,4 @@ const mapDispatchToProps = (dispatch) => {
 	}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);
