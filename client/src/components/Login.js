@@ -20,7 +20,7 @@ class Login extends Component {
     userTocken = () => {
         var id = this.getQueryParam('token');
         if(id) {
-            this.getUsuarios(id);
+            get_user_data(id);
         }
     }
 
