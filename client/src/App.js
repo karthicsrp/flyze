@@ -11,6 +11,7 @@ import RetailAndBrand from './components/RetailAndBrand';
 import Passenger from './components/Passenger';
 import Navigation from './components/Navigation';
 import NotFound from './components/NotFound';
+import { connect } from "react-redux";
 
 
 import './App.css';
@@ -20,8 +21,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       isOpen: false, 
-      redirect: true,
-      validUser:true
+      redirect: true
     };
     
   }
@@ -43,13 +43,14 @@ class App extends React.Component {
                       </div>
                     </nav>;
     }
+    debugger;
     //console.log(props.users);
     return (
       <div className="App">
         <header >      
           {inValidUser}              
           <Router>
-            <MDBNavbar color="indigo" dark expand="md" id="navbar" className={this.state.validUser ? 'sticky-top' : 'hide'}>
+            <MDBNavbar color="indigo" dark expand="md" id="navbar" className={this.props.validUser ? 'sticky-top' : 'hide'}>
               <MDBNavbarBrand>
                 <strong className="white-text">
                   <MDBIcon icon="plane-departure" />
@@ -79,7 +80,7 @@ class App extends React.Component {
                 <MDBNavbarNav right>
                   <MDBNavItem>
                     <MDBDropdown>
-                      <MDBDropdownToggle nav caret> <span className="lg-user-name">Hi Krishna</span>
+                      <MDBDropdownToggle nav caret> <span className="lg-user-name">{this.props.username}</span>
                         <MDBIcon icon="user" />
                       </MDBDropdownToggle>
                       <MDBDropdownMenu className="dropdown-default">
@@ -93,7 +94,10 @@ class App extends React.Component {
               </MDBCollapse>
             </MDBNavbar>
             <Switch> 
-              <Route path='/login' component={Login} />
+              	<Route path='/login'>
+					  {this.props.validUser ? <Redirect to="/home" /> : <Login loginCallback={this.props.setValid} />}
+				    
+				</Route> 
               <Route path='/home' component={Home} />
               <Route path='/airport' component={Airport} />
               <Route path='/airplain' component={Airplain} />
@@ -104,7 +108,7 @@ class App extends React.Component {
             </Switch>
             <Redirect from= '/' to='/login'/>
 
-            <div className={this.state.validUser ? 'mob-port-menu' : 'hide'}> 
+            <div className={this.props.validUser ? 'mob-port-menu' : 'hide'}> 
               <div className="mp-menu-list">
                 <MDBNavLink to="/airport"><MDBIcon icon="archway" /> <span>Airport</span></MDBNavLink>
               </div>    
@@ -128,4 +132,21 @@ class App extends React.Component {
   }
 }
 
-export default App;
+const mapStateToProps = (store) => {
+	return {
+		validUser: store.validUser,
+		username: store.username
+	}
+}
+const mapDispatchToProps = (dispatch) => {
+	return {
+		setValid : (isValid, name) => {
+			dispatch({
+				type : "SET_DATA",
+				data : {value: isValid, username: name}
+			})
+		}
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
