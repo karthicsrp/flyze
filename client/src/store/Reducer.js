@@ -13,6 +13,11 @@ const reducer = function(state = initialstore, action) {
                 username: action.payload.username,
                 userData: action.payload.userData
             }
+        case 'REMOVE_USER': {
+            return {
+                ...initialstore
+            }
+        }
         default: {
             return {
                 ...state
