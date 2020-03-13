@@ -32,7 +32,7 @@ class App extends React.Component {
   menuListDOM = () => {
     let menuList = []
     let datas = [
-                    {icon: "home", text: "Boarding", link: 'home'},
+                    {icon: "home", text: "Home", link: 'home'},
                     {icon: "archway", text: "Airport", link: 'airport'},
                     {icon: "plane", text: "Airplain", link: 'airplain'},
                     {icon: "shopping-cart", text: "Retail/Brand", link: 'retailandbrand'},
@@ -47,7 +47,7 @@ class App extends React.Component {
   }
   
   render() {      
-    const hideShowClass =  this.props.validUser ? '' : 'hide';
+	const hideShowClass =  this.props.validUser ? '' : 'hide';
     return (
       <div className="App">
         <header >      
@@ -60,22 +60,25 @@ class App extends React.Component {
                   <span>Flyze</span>
                 </strong>
               </MDBNavbarBrand>
-              <MDBNavbarBrand right className="user-name-wrapper">Hi <span className="user-name">Krishna</span></MDBNavbarBrand>
+              <MDBNavbarBrand right className="user-name-wrapper">Hi <span className="user-name">{this.props.username}</span></MDBNavbarBrand>
               <MDBNavbarToggler onClick={this.toggleCollapse} className={hideShowClass} />
               <MDBCollapse id="navbarCollapse3" className={hideShowClass} isOpen={this.state.isOpen} navbar>
                 <MDBNavbarNav left onClick={this.toggleCollapse}>
                   {this.menuListDOM()}         
                 </MDBNavbarNav>
                 <MDBNavbarNav right>
+				<MDBNavItem>
+					<span className="lg-user-name">{this.props.username}</span>
+				</MDBNavItem>
                   <MDBNavItem>
-                   <MDBNavLink to="/passenger"><MDBIcon icon="circle-notch" /></MDBNavLink>
+                   <MDBNavLink to="/login" onClick={()=>this.props.removeData()}><MDBIcon icon="circle-notch" /></MDBNavLink>
                   </MDBNavItem>
                 </MDBNavbarNav>
               </MDBCollapse>
             </MDBNavbar>
             <Switch> 
               	<Route path='/login'>
-					  {this.props.validUser ? <Redirect to="/home" /> : <Login loginCallback={this.props.setValid} />}
+					  {this.props.validUser ? <Redirect to="/home" /> : <Login />}
 				    
 				</Route> 
               <Route path='/home' component={Home} />
@@ -120,13 +123,12 @@ const mapStateToProps = (store) => {
 }
 const mapDispatchToProps = (dispatch) => {
 	return {
-		setValid : (isValid, name) => {
+		removeData: () => {
 			dispatch({
-				type : "SET_DATA",
-				data : {value: isValid, username: name}
+				type: "REMOVE_USER"
 			})
 		}
 	}
 }
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

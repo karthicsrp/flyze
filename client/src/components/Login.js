@@ -98,7 +98,7 @@ class Login extends Component {
         if (this.state.errorFlag) {  
             errorDom = <div className="error-msg">Invalid PNR</div>
         }
-
+        
         return (            
             <section className="qr-scanner-wrapper"> 
                 <div onClick={this.toggleQRScanner}>
