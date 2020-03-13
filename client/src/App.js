@@ -114,7 +114,7 @@ class App extends React.Component {
 
 const mapStateToProps = (store) => {
 	return {
-		validUser: store.validUser,
+		validUser: store.isValidUser,
 		username: store.username
 	}
 }
@@ -129,4 +129,4 @@ const mapDispatchToProps = (dispatch) => {
 	}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);
