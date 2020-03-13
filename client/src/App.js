@@ -18,7 +18,11 @@ import './App.css';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {isOpen: false, redirect: true,validUser:true};
+    this.state = {
+      isOpen: false, 
+      redirect: true,
+      validUser:true
+    };
     
   }
 
@@ -100,22 +104,20 @@ class App extends React.Component {
             </Switch>
             <Redirect from= '/' to='/login'/>
 
-            <div className='mob-port-menu'>            
-                      
-          <div className="mp-menu-list">
-            <MDBNavLink to="/airport"><MDBIcon icon="archway" /> <span>Airport</span></MDBNavLink>
-          </div>    
-          <div className="mp-menu-list">
-            <MDBNavLink to="/airplain"><MDBIcon icon="plane" /> <span>Airplain</span></MDBNavLink>
-          </div> 
-          <div className="mp-menu-list">
-            <MDBNavLink to="/retailandbrand"><MDBIcon icon="shopping-cart" /> <span>Retail</span></MDBNavLink>
-          </div> 
-          <div className="mp-menu-list">
-            <MDBNavLink to="/passenger"><MDBIcon icon="users" /> <span>Passenger</span></MDBNavLink>
-          </div>            
-                    
-        </div>
+            <div className={this.state.validUser ? 'mob-port-menu' : 'hide'}> 
+              <div className="mp-menu-list">
+                <MDBNavLink to="/airport"><MDBIcon icon="archway" /> <span>Airport</span></MDBNavLink>
+              </div>    
+              <div className="mp-menu-list">
+                <MDBNavLink to="/airplain"><MDBIcon icon="plane" /> <span>Airplain</span></MDBNavLink>
+              </div> 
+              <div className="mp-menu-list">
+                <MDBNavLink to="/retailandbrand"><MDBIcon icon="shopping-cart" /> <span>Retail</span></MDBNavLink>
+              </div> 
+              <div className="mp-menu-list">
+                <MDBNavLink to="/passenger"><MDBIcon icon="users" /> <span>Passenger</span></MDBNavLink>
+              </div>    
+           </div>
 
           </Router>             
         </header>            
