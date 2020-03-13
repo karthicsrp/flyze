@@ -11,6 +11,7 @@ import RetailAndBrand from './components/RetailAndBrand';
 import Passenger from './components/Passenger';
 import Navigation from './components/Navigation';
 import NotFound from './components/NotFound';
+import { connect } from "react-redux";
 
 
 import './App.css';
@@ -18,7 +19,10 @@ import './App.css';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {isOpen: false, redirect: true,validUser:true};
+    this.state = {
+      isOpen: false, 
+      redirect: true
+    };
     
   }
 
@@ -45,7 +49,7 @@ class App extends React.Component {
         <header >      
           {inValidUser}              
           <Router>
-            <MDBNavbar color="indigo" dark expand="md" id="navbar" className={this.state.validUser ? 'sticky-top' : 'hide'}>
+            <MDBNavbar color="indigo" dark expand="md" id="navbar" className={this.props.validUser ? 'sticky-top' : 'hide'}>
               <MDBNavbarBrand>
                 <strong className="white-text">
                   <MDBIcon icon="plane-departure" />
@@ -75,7 +79,7 @@ class App extends React.Component {
                 <MDBNavbarNav right>
                   <MDBNavItem>
                     <MDBDropdown>
-                      <MDBDropdownToggle nav caret> <span className="lg-user-name">Hi Krishna</span>
+                      <MDBDropdownToggle nav caret> <span className="lg-user-name">{this.props.username}</span>
                         <MDBIcon icon="user" />
                       </MDBDropdownToggle>
                       <MDBDropdownMenu className="dropdown-default">
@@ -89,7 +93,10 @@ class App extends React.Component {
               </MDBCollapse>
             </MDBNavbar>
             <Switch> 
-              <Route path='/login' component={Login} />
+              	<Route path='/login'>
+					  {this.props.validUser ? <Redirect to="/home" /> : <Login loginCallback={this.props.setValid} />}
+				    
+				</Route> 
               <Route path='/home' component={Home} />
               <Route path='/airport' component={Airport} />
               <Route path='/airplain' component={Airplain} />
@@ -100,22 +107,20 @@ class App extends React.Component {
             </Switch>
             <Redirect from= '/' to='/login'/>
 
-            <div className='mob-port-menu'>            
-                      
-          <div className="mp-menu-list">
-            <MDBNavLink to="/airport"><MDBIcon icon="archway" /> <span>Airport</span></MDBNavLink>
-          </div>    
-          <div className="mp-menu-list">
-            <MDBNavLink to="/airplain"><MDBIcon icon="plane" /> <span>Airplain</span></MDBNavLink>
-          </div> 
-          <div className="mp-menu-list">
-            <MDBNavLink to="/retailandbrand"><MDBIcon icon="shopping-cart" /> <span>Retail</span></MDBNavLink>
-          </div> 
-          <div className="mp-menu-list">
-            <MDBNavLink to="/passenger"><MDBIcon icon="users" /> <span>Passenger</span></MDBNavLink>
-          </div>            
-                    
-        </div>
+            <div className={this.props.validUser ? 'mob-port-menu' : 'hide'}> 
+              <div className="mp-menu-list">
+                <MDBNavLink to="/airport"><MDBIcon icon="archway" /> <span>Airport</span></MDBNavLink>
+              </div>    
+              <div className="mp-menu-list">
+                <MDBNavLink to="/airplain"><MDBIcon icon="plane" /> <span>Airplain</span></MDBNavLink>
+              </div> 
+              <div className="mp-menu-list">
+                <MDBNavLink to="/retailandbrand"><MDBIcon icon="shopping-cart" /> <span>Retail</span></MDBNavLink>
+              </div> 
+              <div className="mp-menu-list">
+                <MDBNavLink to="/passenger"><MDBIcon icon="users" /> <span>Passenger</span></MDBNavLink>
+              </div>    
+           </div>
 
           </Router>             
         </header>            
@@ -126,4 +131,21 @@ class App extends React.Component {
   }
 }
 
-export default App;
+const mapStateToProps = (store) => {
+	return {
+		validUser: store.validUser,
+		username: store.username
+	}
+}
+const mapDispatchToProps = (dispatch) => {
+	return {
+		setValid : (isValid, name) => {
+			dispatch({
+				type : "SET_DATA",
+				data : {value: isValid, username: name}
+			})
+		}
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -30,8 +30,9 @@ class Login extends Component {
                 if(response.length === 0) {
                      this.setState({ errorFlag: true });
                 } else {
+                    this.props.loginCallback(true, 'Krishna');
                     // user valid data
-                    this.props.history.push("/home");
+                    // this.props.history.push("/home");
                 }
             })
         .catch(err => console.log(err))
