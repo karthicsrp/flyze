@@ -1,3 +1,4 @@
+/* mobile by default css star there*/
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -6,10 +7,11 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',  monospace;
+}
+p {
+  margin-bottom: 0;
 }
 .hide, #navbarCollapse3.hide {
   display: none !important;
@@ -22,19 +24,13 @@ code {
 .show.dropdown-menu.dropdown-default {
   left: -100px;
 }
-p {
-  margin-bottom: 0;
-}
 .fz-features {
   display: flex;
   flex-wrap: wrap;
 }
-
-
 .navbar-brand {
   margin-right: 3rem;
 }
-
 .feature-list-wrapper {
   padding: 2rem;
   flex: 1 0 33%;
@@ -67,84 +63,22 @@ p {
   align-items: center;
   justify-content: center;
 }
-/*
-	
-.fl-1 .fz-feature-title-wrapper {
-	background: #673BB7;
-}
-.fl-1 .icon-wrapper {
-	background: #673BB7;
-}
-.fl-2 .fz-feature-title-wrapper {
-	background: #CCDB38;
-}
-.fl-2 .icon-wrapper {
-	background: #CCDB38;
-}
-.fl-3 .fz-feature-title-wrapper {
-	background: #E62E63;
-}
-.fl-3 .icon-wrapper {
-	background: #E62E63;
-}
-.fl-4 .fz-feature-title-wrapper {
-	background: #607D8B;
-}
-.fl-4 .icon-wrapper {
-	background: #607D8B;
-}
-.fl-5 .fz-feature-title-wrapper {
-	background: #F9EA3A;
-}
-.fl-5 .icon-wrapper {
-	background: #F9EA3A;
-}
-.fl-6 .fz-feature-title-wrapper {
-	background: #D66351;
-}
-.fl-6 .icon-wrapper {
-	background: #D66351;
-}
-.fl-7 .fz-feature-title-wrapper {
-	background: #9C26B0;
-}
-.fl-7 .icon-wrapper {
-	background: #9C26B0;
-}
-.fl-8 .fz-feature-title-wrapper {
-	background: #5DBDD2;
-}
-.fl-8 .icon-wrapper {
-	background: #5DBDD2;
-}
-.fl-9 .fz-feature-title-wrapper {
-	background: #E74133;
-}
-.fl-9 .icon-wrapper {
-	background: #E74133;
-}
-*/
-
-
 .sticky-top {
   position: fixed !important;
   top: 0 !important;
   width: 100% !important;
   z-index: 9 !important;
-}
- 
+} 
 .fz-features {
   padding-top: 55px;
 }
-
-
 .mob-port-menu {
   position: fixed;
   display: flex;
   bottom: 0;
   background: #f9f7f6;
   width: 100%;
-  border-top: 1px solid;
+  border-top: 1px solid #cbcbd4;
 }
 .mp-menu-list {
   flex: 1 0 25%;
@@ -152,20 +86,23 @@ p {
 }
 
 .mob-port-menu .mp-menu-list a {
-  color: #121213;
+  color: #97979c;
   padding: 0;
 }
 .mob-port-menu .mp-menu-list a i {
   display: block;
   font-size: 24px;
 }
-
+.qr-scanner-wrapper {
+  margin: 70px 20px 20px;
+}
 .mob-port-menu .mp-menu-list a span {
-  color: black;
+  color: #97979c;
   font-weight: bold;
 }
-
-/* mobile by default star there*/
+.mob-port-menu .mp-menu-list.active a span, .mob-port-menu .mp-menu-list.active a{
+  color: #4d97f3;
+}
 .mobile-fz-features, .qr-scanner-wrapper {  
   margin-top: 70px;
 }
@@ -221,8 +158,6 @@ text-decoration: underline;
     color: #4d97f3;
     letter-spacing: 2px; /* 4CAF50*/
 }
-
-
 .pass-detail{
   text-align: left;
   padding: 1rem;
@@ -253,11 +188,19 @@ text-decoration: underline;
 .navbar-toggler {
   display: none;
 }
+.md-form {
+  margin: 0 auto;
+  max-width: 400px;
+  margin-top: 2rem;
+}
+
+
+/* mobile by default css end there*/
 
 /* mmobile portrait mode start here */
 @media only screen and (min-device-width: 481px){
-  .mob-port-menu {
-    display: none;
+  .mob-port-menu, .lg-user-name {
+    display: none !important;
   }
   .navbar-toggler {
     display: block;
@@ -271,7 +214,7 @@ text-decoration: underline;
 }
 /* mmobile portrait mode end here */
 
-/* except mmobile start here */
+/* except mobile start here */
 @media only screen and (min-device-width: 768px){
   .user-name-wrapper {
     display: none !important;
@@ -296,4 +239,4 @@ text-decoration: underline;
     font-size: 20px;
   }
 }
-/* except mmobile end here */
+/* except mobile end here */

@@ -24,7 +24,7 @@ const reducer = function(state = initialstore, action) {
             }
         }
     }
-	return state;
+    
 }
 
 export default reducer;

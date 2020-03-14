@@ -21,7 +21,7 @@ class Airport extends Component {
           let children = [];
           children.push(<div><i data-test="fa" className={`${data['icon']}`}></i></div>);
           children.push(<div className="icon-text">{`${data['text']}`}</div>);
-          table.push(<Link className="service-icon" to="/navigation" >{children}</Link>);          
+          table.push(<Link key={data['text']} className="service-icon" to="/navigation" >{children}</Link>);          
       }
       return table;
   }

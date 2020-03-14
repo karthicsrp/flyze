@@ -17,7 +17,7 @@ class Passenger extends Component {
               let children = [];
               children.push(<div><i data-test="fa" className={`${data['icon']}`}></i></div>);
               children.push(<div className="icon-text">{`${data['text']}`}</div>);
-              table.push(<div className="service-icon" >{children}</div>);
+              table.push(<div key={data['text']} className="service-icon" >{children}</div>);
           }
           return table;
       }

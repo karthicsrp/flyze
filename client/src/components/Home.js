@@ -10,7 +10,7 @@ class Home extends Component {
         let table = []
         let datas = [
                         {icon: "fa fa-archway", text: "Airport", link: "airport"},
-                        {icon: "fa fa-plane-departure", text: "Airplane", link: "airplain"},
+                        {icon: "fa fa-plane-departure", text: "Airplane", link: "airplane"},
                         {icon: "fa fa-shopping-cart", text: "Retail/Brand", link: "RetailAndBrand"},
                         {icon: "fa fa-users", text: "Passenger", link: "passenger"}       
                     ]
@@ -18,7 +18,7 @@ class Home extends Component {
              let children = [];
             children.push(<div><i data-test="fa" className={`${data['icon']}`}></i></div>);
             children.push(<div className="icon-text">{`${data['text']}`}</div>);
-             table.push(<Link to={`${data['link']}`} className="service-icon">{children}</Link>);
+             table.push(<Link key={data['text']} to={`${data['link']}`} className="service-icon">{children}</Link>);
         }
         return table
     }

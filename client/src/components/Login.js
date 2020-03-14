@@ -30,8 +30,12 @@ class Login extends Component {
     prnSubmit = () => {
         if(!this.state.result) {
             this.setState({ errorFlag: true });
-        }
+            return false;
+        }        
         get_user_data(this.state.result);
+        if(this.props.userData.length === 0){
+           // this.setState({ errorFlag: true });
+        }
     }
  
     getQueryParam = (name) => {
@@ -64,7 +68,7 @@ class Login extends Component {
           for (let key in data) {
             if(labels[key]) {
               children.push(<div className='label'>{`${labels[key]}`} :</div>)
-              children.push(<div>{`${data[key]}`}</div>)
+              children.push(<div key={key} >{`${data[key]}`}</div>)
             }
           }
           table.push(<div className="pass-detail">{children}</div>)
@@ -105,13 +109,13 @@ class Login extends Component {
                     <i data-test="fa" className="fa fa-qrcode qr-login"></i>
                 </div>
                 {qrDom}
-                <div className="pnr-input-wrapper col-sm-12 col-md-6">
+                <div className="pnr-input-wrapper">
                     <div className="md-form"> 
                         <input type="text" name="pnr-no" id="pnr-no" className="form-control" value={this.state.result} onChange={this.pnrVal} />
-                        <label className="active">PNR No</label>
+                        <label className="active">PNR NO</label>
                     </div>
                 </div>
-                <div className="pnr-submit-wrapper col-md-6 col-sm-6">
+                <div className="pnr-submit-wrapper">
                     <div className="md-form">
                     <button type="button" className="btn btn-outline-primary waves-effect" onClick={this.prnSubmit}>Login</button>
                     </div> 
