@@ -13,7 +13,7 @@ code {
 p {
   margin-bottom: 0;
 }
-.hide, #navbarCollapse3.hide {
+.hide, .hidden, #navbarCollapse3.hide {
   display: none !important;
 }
 .qr-scanner-wrapper2 {
@@ -93,9 +93,6 @@ p {
   display: block;
   font-size: 24px;
 }
-.qr-scanner-wrapper {
-  margin: 70px 20px 20px;
-}
 .mob-port-menu .mp-menu-list a span {
   color: #97979c;
   font-weight: bold;
@@ -103,7 +100,7 @@ p {
 .mob-port-menu .mp-menu-list.active a span, .mob-port-menu .mp-menu-list.active a{
   color: #4d97f3;
 }
-.mobile-fz-features, .qr-scanner-wrapper {  
+.mobile-fz-features {  
   margin-top: 70px;
 }
 .mobile-fz-features-wrapper {
@@ -193,14 +190,47 @@ text-decoration: underline;
   max-width: 400px;
   margin-top: 2rem;
 }
+.card.card-image{
+	background-image: url('login_bg.jpg'); 
+	width: 27rem;
+}
+.center {
+  display: flex;
+  justify-content: center;
+}
+.login-wrapper {
+  margin: 70px 20px 20px;
+}
+.form-dark label.active {
+  color: #fff !important;
+}
 
+.mp-logout-icon {
+  margin-left: 12px;
+  color: #fff;
+}
+.navbar-brand.user-name-wrapper {
+  margin-right: 0px;
+}
+li.nav-item {
+  max-height:  40px;
+}
+.dashboard {
+  margin-top: 70px;
+}
 
 /* mobile by default css end there*/
 
 /* mmobile portrait mode start here */
 @media only screen and (min-device-width: 481px){
-  .mob-port-menu, .lg-user-name {
+  .mob-port-menu{
+    display: none;
+  }
+  .lg-user-name, .mp-logout-icon {
     display: none !important;
+  }
+  .navbar-brand.user-name-wrapper {
+    margin-right: 1rem;
   }
   .navbar-toggler {
     display: block;
@@ -222,7 +252,7 @@ text-decoration: underline;
   .lg-user-name {
     font-weight: bold;
     padding-right: 10px;
-    display: inline-block;
+    display: inline-block !important;
   }
   .service-icon {
     flex: 1 0 25%;

@@ -14,15 +14,15 @@ connection.connect((err) => {
 });
 
 router.get('/', (req, res) => {
-  var sql = 'select pnr_id, name, age, dep_location, dep_date_time,ari_location, ari_date_time, terminal, status from passanger_info WHERE pnr_id = ?';
+  var sql = 'select "passenger" userType, pnr_id, name, age, dep_location, dep_date_time,ari_location, ari_date_time, terminal, status from passanger_info WHERE pnr_id = ?';
   connection.query(sql, [req.query.id], (err, result, fields) => {
     (err) ? res.send(err) :  res.json(result);
   });
 });
 
-router.get('/test', (req, res) => {
-  var sql = 'select pnr_id, name, age, status from passanger_info';
-  connection.query(sql, (err, result, fields) => {
+router.get('/airHostessLogin', (req, res) => {
+  var sql = 'select "airhostees" userType, flight_id from flight_info WHERE flight_id = ? AND Password = ?';
+  connection.query(sql,  [req.query.id, req.query.pass], (err, result, fields) => {
     (err) ? res.send(err) :  res.json(result);
   });
 });

@@ -10,7 +10,9 @@ import RetailAndBrand from './components/RetailAndBrand';
 import Passenger from './components/Passenger';
 import Navigation from './components/Navigation';
 import NotFound from './components/NotFound';
+import Dashboard from './components/dashboard';
 import { connect } from "react-redux";
+import { Link } from 'react-router-dom';
 
 
 import './App.css';
@@ -37,31 +39,36 @@ class App extends React.Component {
   }
   
   mobileBottomFixedMenuListDOM = () => {
-    let menuList = []
-    let datas = [
-                    {icon: "archway", text: "Airport", link: 'airport'},
-                    {icon: "plane", text: "Airplane", link: 'airplane'},
-                    {icon: "shopping-cart", text: "Retail", link: 'retailandbrand'},
-                    {icon: "users", text: "Passenger", link: 'passenger'}   
-                ]; 
-    for (let data of datas) {
-        let children = [];
-        children.push(<MDBNavLink to={`/${data['link']}`} ><MDBIcon icon={`${data['icon']}`}/><span>{`${data['text']}`}</span></MDBNavLink>);
-        menuList.push(<div key={data['link']} className={this.state.activeItem === data['link'] ? 'mp-menu-list active' : 'mp-menu-list'} onClick={this.handleItemClick.bind(this, data['link'])} >{children}</div>); 
-      }
-    return menuList;    
-
+    if(this.props.userType === 'P') {
+      let menuList = []
+      let datas = [
+                      {icon: "archway", text: "Airport", link: 'airport'},
+                      {icon: "plane", text: "Airplane", link: 'airplane'},
+                      {icon: "shopping-cart", text: "Retail", link: 'retailandbrand'},
+                      {icon: "users", text: "Passenger", link: 'passenger'}   
+                  ]; 
+      for (let data of datas) {
+          let children = [];
+          children.push(<MDBNavLink to={`/${data['link']}`} ><MDBIcon icon={`${data['icon']}`}/><span>{`${data['text']}`}</span></MDBNavLink>);
+          menuList.push(<div key={data['link']} className={this.state.activeItem === data['link'] ? 'mp-menu-list active' : 'mp-menu-list'} onClick={this.handleItemClick.bind(this, data['link'])} >{children}</div>); 
+        }
+      return menuList;    
+    }
   }
 
   menuListDOM = () => {    
     let menuList = []
-    let datas = [
+    let datas = [{icon: "far fa-list-alt", text: "Dashboard", link: 'dashboard'}];
+    if(this.props.userType === 'P') {
+      datas = [
                     {icon: "home", text: "Home", link: 'home'},
                     {icon: "archway", text: "Airport", link: 'airport'},
                     {icon: "plane", text: "Airplane", link: 'airplane'},
                     {icon: "shopping-cart", text: "Retail/Brand", link: 'retailandbrand'},
                     {icon: "users", text: "Passenger", link: 'passenger'}   
                 ]; 
+    }
+    
     for (let data of datas) {
       let children = [];
       children.push(<MDBNavLink to={`/${data['link']}`} ><MDBIcon icon={`${data['icon']}`}/><span>{`${data['text']}`}</span></MDBNavLink>);
@@ -71,7 +78,7 @@ class App extends React.Component {
   }
   
   render() {      
-	const hideShowClass =  this.props.validUser ? '' : 'hide';
+  const hideShowClass =  this.props.validUser ? '' : 'hide';
     return (
       <div className="App">
         <header >      
@@ -84,7 +91,7 @@ class App extends React.Component {
                   <span>Flyze</span>
                 </strong>
               </MDBNavbarBrand>
-              <MDBNavbarBrand right className="user-name-wrapper"><span className="user-name">{this.props.username}</span></MDBNavbarBrand>
+              <MDBNavbarBrand right className="user-name-wrapper"><span className="user-name">{this.props.username}</span><Link to="/login" className={hideShowClass} ><MDBIcon  icon="sign-out-alt mp-logout-icon" onClick={()=>this.props.removeData()}/></Link></MDBNavbarBrand>
               <MDBNavbarToggler onClick={this.toggleCollapse} className={hideShowClass} />
               <MDBCollapse id="navbarCollapse3" className={hideShowClass} isOpen={this.state.isOpen} navbar>
                 <MDBNavbarNav left onClick={this.toggleCollapse}>
@@ -102,7 +109,12 @@ class App extends React.Component {
             </MDBNavbar>
             <Switch> 
               	<Route path='/login'>
-					  {this.props.validUser ? <Redirect to="/home" /> : <Login />}
+            { (this.props.validUser) ?
+                (this.props.userType === 'A') ?
+                 <Redirect to="/dashboard" /> : 
+                 <Redirect to="/home" /> 
+              : <Login />
+            }
 				    
 				</Route> 
               <Route path='/home' component={Home} />
@@ -111,6 +123,7 @@ class App extends React.Component {
               <Route path='/retailandbrand' component={RetailAndBrand} />
               <Route path='/passenger' component={Passenger} />  
               <Route path='/navigation' component={Navigation} />  
+              <Route path='/dashboard' component={Dashboard} />               
               <Route path="*" component={NotFound}/>
             </Switch>
             <Redirect from= '/' to='/login'/>
@@ -131,7 +144,8 @@ class App extends React.Component {
 const mapStateToProps = (store) => {
 	return {
 		validUser: store.isValidUser,
-		username: store.username
+    username: store.username,
+    userType: store.userType
 	}
 }
 const mapDispatchToProps = (dispatch) => {
