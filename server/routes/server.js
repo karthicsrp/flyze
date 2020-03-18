@@ -21,7 +21,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/airHostessLogin', (req, res) => {
-  var sql = 'select "airhostees" userType, flight_id from flight_info WHERE flight_id = ? AND Password = ?';
+  var sql = 'SELECT "airhostees" userType, flight_id from flight_info WHERE flight_id = ? AND Password = ?';
   connection.query(sql,  [req.query.id, req.query.pass], (err, result, fields) => {
     (err) ? res.send(err) :  res.json(result);
   });
@@ -36,12 +36,18 @@ router.get('/order', (req, res) => {
 });
 
 router.get('/dashboard', (req, res) => {
-  var sql = 'select name, seat_no, items, item_count, total_amount, status from order_info WHERE flight_id = ? AND status != ?';
-  connection.query(sql,  [req.query.flightId, 'Delivered'], (err, result, fields) => {
+  var sql = 'SELECT id, name, seat_no, items, item_count, type_of_serv, total_amount, status from order_info WHERE flight_id = ? AND status NOT IN (?, ?)';
+  connection.query(sql,  [req.query.flightId, 'delivered', 'canceled'], (err, result, fields) => {
     (err) ? res.send(err) :  res.json(result);
   });
 });
 
+router.get('/orderAction', (req, res) => {
+  var sql = 'UPDATE order_info SET status = ? WHERE id = ?';
+  connection.query(sql,  [req.query.actionType, req.query.id], (err, result, fields) => {
+    (err) ? res.send(err) :  res.json(result);
+  });
+});
 
 
 module.exports = router;

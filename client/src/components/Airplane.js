@@ -6,8 +6,8 @@ class Airplane extends Component {
     super(props);
     this.state = {vaOpen: false, servType: '', servName: ''};
   }
-  toggleModelShow(servName){
-    this.setState({ vaOpen: true, servName:servName, servType: 'free' });
+  toggleModelShow(servName, typeOfService){
+    this.setState({ vaOpen: true, servName:servName, servType: typeOfService });
   } 
   vaOrder = () => {
     this.setState({ vaOpen: false });
@@ -18,28 +18,29 @@ class Airplane extends Component {
   toggleModelHide = () => {
     this.setState({ vaOpen: false });
   }
-  airplaneServices () {
-      let table = []
-      let datas = [                                     
-                      {icon: "fas fa-prescription-bottle", text: "Water"},
-                      {icon: "fa fa-mug-hot", text: "Tea"},
-                      {icon: "fa fa-coffee", text: "Coffee"},
-                      {icon: "fa fa-wine-glass-alt", text: "Liquor"},
-                      {icon: "fab fa-gulp", text: "fruit Juice"},
-                      {icon: "fa fa-pizza-slice", text: "Snacks"},
-                      {icon: "fa fa-utensils", text: "Food"},
-                      {icon: "fa fa-briefcase-medical", text: "First aid/Medical"}                                
-                  ];
-                  //{icon: "fas fa-hands-helping", text: "Help Desk"} 
+  airpoartServices (datas, typeOfService) {
+      let table = [];                 //{icon: "fas fa-hands-helping", text: "Help Desk"} 
       for (let data of datas) {
           let children = [];
           children.push(<div><i data-test="fa" className={`${data['icon']}`}></i></div>);
           children.push(<div className="icon-text">{`${data['text']}`}</div>);
-          table.push(<div key={data['text']} className="service-icon" data-toggle="modal" data-target="#va-modal" onClick={this.toggleModelShow.bind(this, data['text'])}>{children}</div>);
+          table.push(<div key={data['text']} className="service-icon" data-toggle="modal" data-target="#va-modal" onClick={this.toggleModelShow.bind(this, data['text'], typeOfService)}>{children}</div>);
       }
       return table;
   }
   render() {
+    let free = [                                  
+              {icon: "fas fa-prescription-bottle", text: "Water"},
+              {icon: "fa fa-mug-hot", text: "Tea"},
+              {icon: "fa fa-coffee", text: "Coffee"},
+              {icon: "fa fa-wine-glass-alt", text: "Liquor"}
+            ];
+    let pay = [                           
+            {icon: "fab fa-gulp", text: "fruit Juice"},
+            {icon: "fa fa-pizza-slice", text: "Snacks"},
+            {icon: "fa fa-utensils", text: "Food"},
+            {icon: "fa fa-briefcase-medical", text: "First aid/Medical"}  
+          ];  
     let hideShowClass = this.state.vaOpen ? 'modal fade show' : 'modal fade hide';
     return (
         <section className="mobile-fz-features">
@@ -47,8 +48,16 @@ class Airplane extends Component {
               <i data-test="fa" className="fa fa-plane"></i>
               <span className="title-name">Airplane Services</span>
           </div>
-          <div className="mobile-fz-features-wrapper">            
-              {this.airplaneServices()}
+          <div className="ap-s">            
+              <div className="catagory">Free Service</div>
+              <div className="free-service-wrapper airplane-services">               
+                {this.airpoartServices(free, 'free')}
+              </div>
+              <div className="catagory">Paid Service</div>
+              <div className="paid-service-wrapper airplane-services">               
+                {this.airpoartServices(pay, 'paid')}
+              </div>
+
           </div>
          
 

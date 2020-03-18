@@ -103,7 +103,7 @@ p {
 .mobile-fz-features {  
   margin-top: 70px;
 }
-.mobile-fz-features-wrapper {
+.mobile-fz-features-wrapper, .airplane-services {
   display: flex;
   flex-wrap: wrap;
   color: #3f51b5;
@@ -132,7 +132,7 @@ text-decoration: underline;
 .service-icon:hover{
   color: #03A9F4;
 }
-.mobile-fz-features-wrapper i {
+.mobile-fz-features-wrapper i, .airplane-services i {
   font-size: 32px;
 }
 .icon-text {
@@ -239,11 +239,33 @@ table.table td {
 }
 .table-container button {
   border: 0px;
-  padding: 2px 20px;
+  padding: 2px 8px;
+  min-width: 75px;
 }
-#btn-process {
-  background-color: #3f51b5 !important;
+.catagory {
+  text-align: left;
+  color: #607D8B;
+  font-size: 17px;
+  padding: .5rem 1rem;
+  font-weight: bold;
+  letter-spacing: 1px;
 }
+.btn-process {
+  background-color: #4CAF50 !important;
+}
+.btn-cancel {
+  background: #F44336;
+  color: #fff;
+  margin-left: 10px;
+}
+.btn-deliver {
+  background: #FFC107;
+  color: #fff;
+}
+td {
+  text-transform: capitalize;
+}
+
 /* mobile by default css end there*/
 
 /* mmobile portrait mode start here */
@@ -287,7 +309,7 @@ table.table td {
     flex: 1 0 25%;
     padding: .3rem;
   }
-  .mobile-fz-features-wrapper i {
+  .mobile-fz-features-wrapper i, .airplane-services i {
     font-size: 60px;
   }
   .icon-text {
