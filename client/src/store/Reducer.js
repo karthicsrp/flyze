@@ -3,6 +3,7 @@ const initialstore = {
     isValidUser: false,
     username: '',
     userType: '',
+    orderData: '',
 };
 
 const reducer = function(state = initialstore, action) {
@@ -20,6 +21,11 @@ const reducer = function(state = initialstore, action) {
                 ...initialstore
             }
         }
+        case 'SET_ORDER_DATA' :
+            return {
+                ...state,
+                orderData: action.payload.orderData
+            }
         default: {
             return {
                 ...state

@@ -112,8 +112,7 @@ class App extends React.Component {
             { (this.props.validUser) ?
                 (this.props.userType === 'A') ?
                  <Redirect to="/dashboard" /> : 
-                 <Redirect to="/home" /> 
-              : <Login />
+                 <Redirect to="/home" /> : <Login />
             }
 				    
 				</Route> 

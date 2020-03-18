@@ -41,3 +41,21 @@ export const get_flight_data = (flightId, password) => {
 			})
 		.catch(err => console.log(err))
 };
+
+export const get_order_data = flightId => {
+	fetch(`http://localhost:4000/server/dashboard?flightId=${flightId}`)
+	.then(response => response.json())
+	.then(response => { 
+		console.log(response);
+			if(response.length > 0) {
+				
+					Store.dispatch({
+						type : "SET_ORDER_DATA",
+						payload : {
+							orderData: response
+						}
+					});
+			}				
+		})
+	.catch(err => console.log(err))
+}

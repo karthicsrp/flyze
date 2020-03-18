@@ -218,7 +218,32 @@ li.nav-item {
 .dashboard {
   margin-top: 70px;
 }
-
+.show {
+  display: block !important; 
+  padding-right: 17px;
+}
+#va-modal .modal-footer {
+  display: none;
+}
+.table-container{
+  padding: 1rem;
+}
+table.table thead th {
+  padding: 10px !important;
+  vertical-align: middle;
+  background: #535e6b;
+}
+table.table td {
+  padding: 8px !important;
+  vertical-align: middle;
+}
+.table-container button {
+  border: 0px;
+  padding: 2px 20px;
+}
+#btn-process {
+  background-color: #3f51b5 !important;
+}
 /* mobile by default css end there*/
 
 /* mmobile portrait mode start here */
