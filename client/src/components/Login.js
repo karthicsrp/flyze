@@ -136,9 +136,9 @@ class Login extends Component {
 
                 <section className={this.state.hidAirHosteesLogin ? 'qr-scanner-wrapper' : 'qr-scanner-wrapper hidden'}> 
                     <div className="passenger-login">
-                        <div onClick={this.toggleQRScanner}>
+                        <button type="button" onClick={this.toggleQRScanner}  tabIndex="0">
                             <i data-test="fa" className="fa fa-qrcode qr-login"></i>
-                        </div>
+                        </button>
                         {qrDom}
                         <div className="pnr-input-wrapper">
                             <div className="md-form"> 
@@ -152,8 +152,8 @@ class Login extends Component {
                             </div> 
                         </div>  
                         <div className="col-md-12">
-                        <p className="font-small d-flex justify-content-center">Are you a Air Hostess? <span href="#"
-                            className="green-text ml-1 font-weight-bold" onClick={this.hidAirHostees.bind(this, false)}> Log in</span></p>
+                        <p className="font-small d-flex justify-content-center">Are you a Air Hostess? <button type="button"
+                            className="green-text ml-1 font-weight-bold transparent" tabIndex="0" onClick={this.hidAirHostees.bind(this, false)}> Log in</button></p>
                         </div>
                     </div>
                 </section>    
@@ -178,12 +178,12 @@ class Login extends Component {
                                 </div>
                                 <div className="row d-flex align-items-center mb-4">
                                     <div className="text-center mb-3 col-md-12">
-                                    <button type="button" className="btn btn-success btn-block btn-rounded z-depth-1" onClick={this.AirHosteesSubmit}>Log in</button>
+                                    <button type="button" className="btn btn-success btn-block btn-rounded z-depth-1" tabIndex="0" onClick={this.AirHosteesSubmit}>Log in</button>
                                     </div>
                                 </div>
                                 <div className="col-md-12">
-                                    <p className="font-small white-text d-flex justify-content-end">Are you a Passenger? <span href="#"
-                                        className="green-text ml-1 font-weight-bold" onClick={this.hidAirHostees.bind(this, true)}> Log in</span></p>
+                                    <p className="font-small white-text d-flex justify-content-end">Are you a Passenger? <button type="button"
+                                        className="green-text ml-1 font-weight-bold transparent"tabIndex="0"  onClick={this.hidAirHostees.bind(this, true)}> Log in</button></p>
                                 </div>
                             </div>
                         </div>    

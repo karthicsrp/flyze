@@ -6,16 +6,6 @@ class Navigation extends Component {
     constructor(props) {
         super(props);
         this.state = {};
-        this.serviceCall();
-    }
-
-    serviceCall = (id) => {  
-        fetch('http://localhost:4000/server/test')
-        .then(response => response.json())
-        .then(response => { 
-                this.setState({users: response}); 
-            })
-        .catch(err => console.log(err))
     }
     
   render() {

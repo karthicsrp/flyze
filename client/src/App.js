@@ -9,6 +9,7 @@ import Airport from './components/Airport';
 import RetailAndBrand from './components/RetailAndBrand';
 import Passenger from './components/Passenger';
 import Navigation from './components/Navigation';
+import PaidServices from './components/PaidServices';
 import NotFound from './components/NotFound';
 import Dashboard from './components/dashboard';
 import { connect } from "react-redux";
@@ -72,7 +73,7 @@ class App extends React.Component {
     for (let data of datas) {
       let children = [];
       children.push(<MDBNavLink to={`/${data['link']}`} ><MDBIcon icon={`${data['icon']}`}/><span>{`${data['text']}`}</span></MDBNavLink>);
-      menuList.push(<MDBNavItem key={data['link']} className={this.state.activeItem === data['link'] ? 'active' : ''} onClick={this.handleItemClick.bind(this, data['link'])} >{children}</MDBNavItem>);          
+      menuList.push(<MDBNavItem key={data['link']} className={data['link'] ==='dashboard' || this.state.activeItem === data['link']  ? 'active' : ''} onClick={this.handleItemClick.bind(this, data['link'])} >{children}</MDBNavItem>);          
      }
     return menuList;     
   }
@@ -121,7 +122,8 @@ class App extends React.Component {
               <Route path='/airplane' component={Airplane} />
               <Route path='/retailandbrand' component={RetailAndBrand} />
               <Route path='/passenger' component={Passenger} />  
-              <Route path='/navigation' component={Navigation} />  
+              <Route path='/navigation' component={Navigation} /> 
+              <Route path='/paidservices' component={PaidServices} />        
               <Route path='/dashboard' component={Dashboard} />               
               <Route path="*" component={NotFound}/>
             </Switch>

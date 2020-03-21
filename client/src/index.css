@@ -102,6 +102,7 @@ p {
 }
 .mobile-fz-features {  
   margin-top: 70px;
+  margin-bottom: 70px;
 }
 .mobile-fz-features-wrapper, .airplane-services {
   display: flex;
@@ -249,6 +250,7 @@ table.table td {
   padding: .5rem 1rem;
   font-weight: bold;
   letter-spacing: 1px;
+  text-transform: capitalize;
 }
 .btn-process {
   background-color: #4CAF50 !important;
@@ -264,6 +266,87 @@ table.table td {
 }
 td {
   text-transform: capitalize;
+  text-align: left;
+}
+.transparent {
+  background: transparent;
+  border: none;
+}
+button:hover, button:active, button:focus {
+  opacity: .8 !important;
+}
+.airplane-paid-services {
+  padding: 0 1rem;
+}
+.table2 th {
+  background: #fff !important;
+  font-weight: bold;
+  text-align: left;
+}
+.custom-control-input {
+  position: relative !important;
+  margin: 0px 4px;
+  vertical-align: middle;
+}
+.table2 thead tr th:first-child, .table2 tbody tr td:first-child  {
+  color: #000;
+}
+.table2 thead tr th:last-child, .table2 tbody tr td:last-child {
+  text-align: right;
+}
+.table2 td {
+  border: none !important;
+}
+.modal-header {
+  background: #4585f4;
+  color: #ffff;
+}
+button.close {
+  color: #fff;  
+  background: #a6c !important;
+  opacity: 1 !important;
+}
+.order-count-wrapper {
+    border: 1px solid #191717;
+    border-radius: 10%;
+    padding: 2px;
+}
+.order-count-wrapper span {
+      padding: 2px 10px;
+}
+.count-no{
+    background: #e4655b40;
+}
+.count-plus {
+    color: #4CAF50;
+    font-weight: bold;
+}
+.count-mins{
+    color: #fb0808;
+    font-weight: bold;
+}
+.selected-order-list {
+  display: flex;
+}
+.selected-order-list > div {
+  flex: 1 0 50%;
+}
+.order-count-fof-list{
+    color: #fff;
+    background: #4585f4;
+    opacity: .7;
+}
+.align-left {
+  text-align: left;
+}
+.align-right {
+  text-align: right;
+}
+.modal-body p {
+    margin-bottom: 5px !important;
+}
+.bold {
+  font-weight: bold;
 }
 
 /* mobile by default css end there*/

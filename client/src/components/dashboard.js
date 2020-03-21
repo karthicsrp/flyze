@@ -2,6 +2,14 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { get_order_data } from "../store/FetchData";
 
+import io from 'socket.io-client';
+const socket = io('http://localhost:4000');
+
+socket.on('getOrderDatas', orderDatas => console.log(orderDatas));
+socket.on('connect', function(){console.log('client connect');});
+        socket.on('timer', timestamp => console.log('client timer resp',timestamp));
+        socket.emit('mycustomevent','client...');
+
 class Dashboard extends Component {
     constructor(props) {
         super(props);
@@ -34,7 +42,7 @@ class Dashboard extends Component {
     tableBodyDOM = () => {
         
         let datas =this.props.orderData;
-        console.log(datas);
+        //console.log(datas);
         let table = [];
         let count = 1; 
         for (let data of datas) {

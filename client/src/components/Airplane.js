@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
+import { Link } from 'react-router-dom';
 
 class Airplane extends Component {
   constructor(props) {
@@ -24,7 +25,12 @@ class Airplane extends Component {
           let children = [];
           children.push(<div><i data-test="fa" className={`${data['icon']}`}></i></div>);
           children.push(<div className="icon-text">{`${data['text']}`}</div>);
-          table.push(<div key={data['text']} className="service-icon" data-toggle="modal" data-target="#va-modal" onClick={this.toggleModelShow.bind(this, data['text'], typeOfService)}>{children}</div>);
+          if(typeOfService === 'free') {
+            table.push(<div key={data['text']} className="service-icon" data-toggle="modal" data-target="#va-modal" onClick={this.toggleModelShow.bind(this, data['text'], typeOfService)}>{children}</div>);
+    
+          } else{
+              table.push(<Link class="service-icon" key={data['text']} to="paidservices">{children}</Link>);    
+          }
       }
       return table;
   }
@@ -57,19 +63,11 @@ class Airplane extends Component {
               <div className="paid-service-wrapper airplane-services">               
                 {this.airpoartServices(pay, 'paid')}
               </div>
-
-          </div>
-         
+          </div>         
 
           <section className="free-fervices">
-          <div className="title-wrapper">
-              <i data-test="fa" className="fa fa-archway"></i>
-              <span className="title-name">Airport Services</span>
-          </div>
-          <div className="">            
-           
             <div className={hideShowClass}  id="va-modal" tabindex="-1" role="dialog" aria-modal="true" >
-              <div className="modal-dialog" role="document">
+              <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable " role="document">
                 <div className="modal-content">
                   <div className="modal-header">
                     <p className="modal-title" id="exampleModalLabel">confirm <i data-test="fa" class="far fa-question-circle"></i></p>
@@ -91,10 +89,7 @@ class Airplane extends Component {
                 </div>
               </div>
             </div>
-
-          </div>
-        </section>
-
+         </section>
 
         </section>
     );
