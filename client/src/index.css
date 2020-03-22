@@ -223,11 +223,14 @@ li.nav-item {
   display: block !important; 
   padding-right: 17px;
 }
-#va-modal .modal-footer {
-  display: none;
+.modal-footer {
+  padding: 5px !important;
 }
 .table-container{
   padding: 1rem;
+}
+.table.table-striped th {
+  text-align: left;
 }
 table.table thead th {
   padding: 10px !important;
@@ -347,6 +350,16 @@ button.close {
 }
 .bold {
   font-weight: bold;
+}
+.modal {
+  background: #cccccc85;
+}
+.selected-order-list.bold{
+  color: #4585f4;
+  margin-top: 8px;
+}
+.title {
+  color: #4585f4;
 }
 
 /* mobile by default css end there*/

@@ -77,15 +77,13 @@ class Airplane extends Component {
                   </div>
                   <div className="modal-body">
                     <div>
-                      <h3>Request for {this.state.servName}</h3>
-                      <div>
-                       <button type="button" className="btn btn-primary waves-effect waves-light va-submit"  onClick={this.vaOrder}>Submit</button>
-                      </div>
+                      <h3>Request for {this.state.servName}</h3>                      
                     </div>
                   </div>
                   <div className="modal-footer">
                     <button type="button" className="btn btn-secondary waves-effect waves-light" data-dismiss="modal" onClick={this.toggleModelHide}>Close</button>
-                     </div>
+                    <button type="button" className="btn btn-primary waves-effect waves-light va-submit"  onClick={this.vaOrder}>Submit</button>
+                  </div>
                 </div>
               </div>
             </div>

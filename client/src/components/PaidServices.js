@@ -9,25 +9,84 @@ class PaidServices extends Component {
     }
     toggleModelShow = () => {
       this.setState({modelOpen: true, paidOrderDOM: this.selectedItemDOM(this.state.fruits) });
-      console.log(this.state.fruits);
     }
     toggleModelHide = () => {
       this.setState({ modelOpen: false });
     }
 
+    paidOrderSubmit =() => {
+      let elements = document.getElementsByClassName('selected-order-list');
+      let datas = [];
+      for (var i = 0; i < elements.length; i++) {
+        var name = elements[i].querySelector('.selected-order-name').textContent;
+        var count = elements[i].querySelector('.count-no').textContent;
+        var price = elements[i].querySelector('.selected-order-price').textContent;
+        var sum = elements[i].querySelector('.selected-order-sum').textContent;
+        datas.push({id: '', name: name, count: count, price: price, sum: sum});
+        
+      }
+      console.log(datas);
+      
+    }
+
+    countChange = (e) => {
+      
+      let rowId = e.target.getAttribute('row-id');
+      let perQntRateEle = document.getElementById('selected-order-price-'+rowId);
+      let sumEle = document.getElementById('selected-order-sum-'+rowId);
+      
+      if(e.target.className === 'count-plus'){
+        let currCount = Number(e.target.previousSibling.textContent) + 1;
+        e.target.previousSibling.textContent = currCount;
+        let perQntRate = perQntRateEle.textContent;
+        let sum = Number(perQntRate) * currCount;
+        sumEle.textContent = sum;
+        if(Number(e.target.previousSibling.textContent) > 0){
+          e.target.previousSibling.previousSibling.classList.remove("disabled");
+        }
+      }
+      else {      
+       if(e.target.classList.contains('disabled')) return false;
+
+        if(Number(e.target.nextSibling.textContent) > 0){
+          let currCount = Number(e.target.nextSibling.textContent) -1;
+          e.target.nextSibling.textContent = currCount;      
+          let perQntRate = perQntRateEle.textContent;
+          let sum = Number(perQntRate) * currCount;
+          sumEle.textContent = sum;  
+        } else {
+          e.target.classList.add("disabled");
+        }
+      }
+      
+      let priceList = document.getElementsByClassName('selected-order-sum');
+      let netAmount = 0;
+      for (var i = 0; i < priceList.length; i++) {
+        netAmount += Number(priceList[i].textContent);        
+      }
+      document.getElementById('net-amount').textContent = netAmount;
+
+    }
+
     selectedItemDOM = (datas) => {
-      let table = [];            
+      let table = [];
+      let count = 0;     
+      let netAmount = 0;       
       for (let data of datas) {
+          count ++;
           let children = [];
-          children.push(<div className="align-left"><p>{data['name']}</p><p>$ {data['price']}</p></div>);
+          children.push(<div className="align-left"><p className="selected-order-name" >{data['name']}</p><p>$ <span className="selected-order-price" id={'selected-order-price-'+count}>{data['price']}</span></p></div>);
           children.push( <div  className="align-right">
             <p><span className="order-count-wrapper">
-              <span className="count-mins">-</span><span className="count-no">1</span><span className="count-plus">+</span>
+              <span className="count-mins" row-id={count} onClick={this.countChange}>-</span><span className="count-no">1</span><span className="count-plus" row-id={count}  onClick={this.countChange}>+</span>
             </span></p>
-            <p>0.00</p>
+            <p className="selected-order-sum" id={'selected-order-sum-'+count}>{data['price']}</p>
           </div>);
           table.push(<div key={data['text']} className="selected-order-list" >{children}</div>);
+          netAmount += Number(data['price']);
       }
+      document.getElementById('net-amount').textContent = netAmount;
+
       return table;
     }    
 
@@ -103,7 +162,6 @@ paidServicesDOM () {
 		  fruits: this.state.fruits.filter((_, i) => i !== remove)
        });
     }
-    console.log(this.state.fruits);
   }
     
   render() {
@@ -136,14 +194,17 @@ paidServicesDOM () {
                   </div>
                   <div className="modal-body">
                     <div>
-                      <p className="bold">Order Summary </p>
+                      <p className="bold title">Order Summary </p>
                        <div>{this.state.paidOrderDOM}</div>
-                      <div>                     </div>
+                      <div className="selected-order-list bold"> 
+                       <div className="align-left">Total Amount</div> 
+                       <div className="align-right" id="net-amount"></div>
+                      </div>
                     </div>
                   </div>
                   <div className="modal-footer">
                     <button type="button" className="btn btn-secondary waves-effect waves-light" data-dismiss="modal" onClick={this.toggleModelHide}>Close</button>
-                    <button type="button" className="btn btn-primary waves-effect waves-light va-submit"  onClick={this.paidOrder}>Submit</button>
+                    <button type="button" className="btn btn-primary waves-effect waves-light va-submit"  onClick={this.paidOrderSubmit}>Submit</button>
                   </div>
                 </div>
               </div>
