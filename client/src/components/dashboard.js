@@ -70,8 +70,8 @@ class Dashboard extends Component {
                 <i data-test="fa" className="fa fa-home"></i>
                 <span className="title-name">Dashboard</span>
             </div>
-            <div className="table-container">
-                <table className="table table-striped table-responsive2">
+            <div className="table-container table-responsive">
+                <table className="table table-striped">
                     <thead className="black white-text">
                         {this.tableHeadDOM()}
                     </thead>
