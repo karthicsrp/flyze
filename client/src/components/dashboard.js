@@ -41,8 +41,7 @@ class Dashboard extends Component {
 
     tableBodyDOM = () => {
         
-        let datas =this.props.orderData;
-        //console.log(datas);
+        let datas =this.props.orderData;       
         let table = [];
         let count = 1; 
         for (let data of datas) {
@@ -56,10 +55,14 @@ class Dashboard extends Component {
            let cancelBtn = <button type="button" onClick={this.orderAction.bind(this, data['id'], 'canceled')} className="btn-sm btn-cancel">Cancel</button>;
            let deleveredBtn = <button type="button" onClick={this.orderAction.bind(this, data['id'], 'delivered')} className="btn-sm btn-deliver">Delivered</button>;
            let btn = (data['status'] === 'in progress') ? deleveredBtn : processBtn ;
-        children.push(<td key={'ab-'+count} className='s-no'>{btn}{cancelBtn}</td>);
+            children.push(<td key={'ab-'+count} className='s-no'>{btn}{cancelBtn}</td>);
             table.push(<tr className="tr">{children}</tr>);
             count++;
           }
+          if(datas.length === 0){
+            table.push(<tr className="tr"><td className="align-center" colSpan="9">No Data Found ...</td></tr>);
+          }
+
           return table;
     }
 

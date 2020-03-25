@@ -101,14 +101,5 @@ const mapStateToProps = (store) => {
     userData: store.userData
 	}
 }
-const mapDispatchToProps = (dispatch) => {
-	return {
-		removeData: () => {
-			dispatch({
-				type: "REMOVE_USER"
-			})
-		}
-	}
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Airplane);
+export default connect(mapStateToProps)(Airplane);

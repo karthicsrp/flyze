@@ -1,5 +1,6 @@
 
 import React, { Component } from 'react';
+import { connect } from "react-redux";
 import { Link } from 'react-router-dom';
 
 class PaidServices extends Component {
@@ -16,17 +17,41 @@ class PaidServices extends Component {
 
     paidOrderSubmit =() => {
       let elements = document.getElementsByClassName('selected-order-list');
-      let datas = [];
+      let dataList = [];
+      let orderData = {pId: this.props.userData[0].id, name: this.props.userData[0].name, type: 'paid', seatNo: this.props.userData[0].seat_no, flightId: this.props.userData[0].flight_id, items:'', count: 0, totalAmount:0};
       for (var i = 0; i < elements.length; i++) {
-        var name = elements[i].querySelector('.selected-order-name').textContent;
+        var items = elements[i].querySelector('.selected-order-name').textContent;
         var count = elements[i].querySelector('.count-no').textContent;
         var price = elements[i].querySelector('.selected-order-price').textContent;
         var sum = elements[i].querySelector('.selected-order-sum').textContent;
-        datas.push({id: '', name: name, count: count, price: price, sum: sum});
-        
-      }
-      console.log(datas);
+        dataList.push({items: items, count: count, price: price, sum: sum});
+        orderData.items += (i !== elements.length-1) ? items+', ' : items; 
+        orderData.count += Number(count);
+      }      
+      orderData.totalAmount = Number(document.getElementById('net-amount').textContent)          
+      var orderCount = elements.length;
+      fetch(`http://localhost:4000/server/paidOrder?datas=${JSON.stringify(orderData)}`).then(response => response.json())
+      .then(data => {
+       if(orderCount > 1 && data.insertId) {
+          fetch(`http://localhost:4000/server/paidOrderDetails?dataList=${JSON.stringify(dataList)}&orderId=${data.insertId}`).then(response => response.json())
+          .then(resData => {
+            console.log(resData);
+          });
+        }           
+      });
       
+      this.setState({ paidOrderDOM: 'Succss', fruits:[], modelOpen: false });  
+      document.getElementById('net-amount').innerHTML = 0;
+      this.uncheckElements();
+
+    }
+    uncheckElements = () => {
+      var uncheck=document.getElementsByTagName('input');
+      for(var i=0;i<uncheck.length;i++) {
+        if(uncheck[i].type ==='checkbox') {
+          uncheck[i].checked=false;
+        }
+      }
     }
 
     countChange = (e) => {
@@ -174,7 +199,7 @@ paidServicesDOM () {
       
         <section className="mobile-fz-features">
             <div className="serv-nav-link">
-            <p><Link to="login" className="underline">PaidServices</Link></p>
+            <p><Link to="airplane" className="underline">Airplane</Link> -> Paid Services</p>
             </div>
 
             <div>{this.paidServicesDOM()}</div>
@@ -195,8 +220,8 @@ paidServicesDOM () {
                   <div className="modal-body">
                     <div>
                       <p className="bold title">Order Summary </p>
-                       <div>{this.state.paidOrderDOM}</div>
-                      <div className="selected-order-list bold"> 
+                       <div id="empty-on-sucess-cancel">{this.state.paidOrderDOM}</div>
+                      <div className="selected-order-sum-wrapper bold"> 
                        <div className="align-left">Total Amount</div> 
                        <div className="align-right" id="net-amount"></div>
                       </div>
@@ -217,4 +242,13 @@ paidServicesDOM () {
   }
 }
 
-export default PaidServices;
+
+const mapStateToProps = (store) => {
+	return {
+		validUser: store.isValidUser,
+    username: store.username,
+    userData: store.userData
+	}
+}
+
+export default connect(mapStateToProps)(PaidServices);

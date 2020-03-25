@@ -328,10 +328,10 @@ button.close {
     color: #fb0808;
     font-weight: bold;
 }
-.selected-order-list {
+.selected-order-list, .selected-order-sum-wrapper {
   display: flex;
 }
-.selected-order-list > div {
+.selected-order-list > div, .selected-order-sum-wrapper > div {
   flex: 1 0 50%;
 }
 .order-count-fof-list{
@@ -354,12 +354,15 @@ button.close {
 .modal {
   background: #cccccc85;
 }
-.selected-order-list.bold{
+.selected-order-sum-wrapper.bold{
   color: #4585f4;
   margin-top: 8px;
 }
 .title {
   color: #4585f4;
+}
+.align-center {
+  text-align: center;
 }
 
 /* mobile by default css end there*/
