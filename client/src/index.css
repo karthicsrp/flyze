@@ -81,7 +81,7 @@ p {
   border-top: 1px solid #cbcbd4;
 }
 .mp-menu-list {
-  flex: 1 0 25%;
+  flex: 0 0 25%;
   padding: 10px;
 }
 
@@ -364,6 +364,15 @@ button.close {
 .align-center {
   text-align: center;
 }
+.other-paid-options {
+    font-size: 20px;
+    color: #3f51b5;
+    padding: 1rem;
+    font-weight: bold;
+}
+.other-paid-options i {
+  padding-right: 5px;
+}
 
 /* mobile by default css end there*/
 
@@ -401,11 +410,11 @@ button.close {
     display: inline-block !important;
   }
   .service-icon {
-    flex: 1 0 25%;
+    flex: 0 0 25%;
     padding: 1rem;
   }
   .pass-detail > div {
-    flex: 1 0 25%;
+    flex: 0 0 25%;
     padding: .3rem;
   }
   .mobile-fz-features-wrapper i, .airplane-services i {

@@ -204,7 +204,11 @@ paidServicesDOM () {
 
             <div>{this.paidServicesDOM()}</div>
 
-            <div><button type="button" className="btn btn-primary waves-effect waves-light" data-toggle="modal" data-target="#va-modal" onClick={this.toggleModelShow}>Process</button></div>
+            <div>
+              <span className="other-paid-options"><i data-test="fa" class="fa fa-pizza-slice"></i>Snacks</span>
+              <span className="other-paid-options"><i data-test="fa" class="fa fa-utensils"></i>Food</span>
+              <button type="button" className="btn btn-primary waves-effect waves-light" data-toggle="modal" data-target="#va-modal" onClick={this.toggleModelShow}>Process</button>
+            </div>
            
 
             <section className="paid-services">

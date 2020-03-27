@@ -46,8 +46,15 @@ class Airplane extends Component {
             {icon: "fa fa-pizza-slice", text: "Snacks"},
             {icon: "fa fa-utensils", text: "Food"},
             {icon: "fa fa-briefcase-medical", text: "First aid/Medical"}  
-          ];  
-    let hideShowClass = this.state.vaOpen ? 'modal fade show' : 'modal fade hide';
+          ]; 
+          let brand = [                           
+            {icon: "fas fa-bus", text: "travel package"},
+            {icon: "fas fa-tshirt", text: "clothing"} 
+          ]; 
+
+    let hideShowClass = this.state.vaOpen ? 'modal fade show' : 'modal fade hide';  
+     
+
     return (
         <section className="mobile-fz-features">
           <div className="title-wrapper">
@@ -62,6 +69,11 @@ class Airplane extends Component {
               <div className="catagory">Paid Service</div>
               <div className="paid-service-wrapper airplane-services">               
                 {this.airpoartServices(pay, 'paid')}
+              </div>
+
+              <div className="catagory">brand Service</div>
+              <div className="brand-service-wrapper airplane-services">               
+                {this.airpoartServices(brand, 'brand')}
               </div>
           </div>         
 
